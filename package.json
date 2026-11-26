@@ -1,0 +1,42 @@
+{
+  "name": "boochi-chat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Privacy-first personal multi-agent chat. History lives only in your browser; the server is a stateless, log-free router to AI providers.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npm run build:server",
+    "build:server": "esbuild server/node.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist-server/node.mjs --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\"",
+    "start": "node dist-server/node.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test --experimental-strip-types --no-warnings \"tests/*.test.ts\"",
+    "cf:dev": "vite build && wrangler dev",
+    "cf:deploy": "vite build && wrangler deploy",
+    "mock": "node scripts/mock-provider.mjs"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.11",
+    "dompurify": "3.5.0",
+    "hono": "4.13.22",
+    "idb": "8.0.4",
+    "jszip": "3.10.2",
+    "marked": "18.3.0",
+    "pdfjs-dist": "6.5.438",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.11",
+    "@types/react": "19.3.3",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "wrangler": "4.168.0"
+  }
+}
